@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2018 rel. 2 sp1 (http://www.altova.com) by Altova XMLSpy 2019 Enterprise XML Editor (Universidade Federal de Santa Maria) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="topicMap">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="topic" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="Ttopic">
+								<xs:attribute name="id" type="xs:ID" use="required"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="association" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="instanceOf">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="topicRef" nillable="true">
+											<xs:complexType>
+												<xs:attribute name="href" use="required"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="member" minOccurs="2" maxOccurs="2">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="topicRef" nillable="true">
+											<xs:complexType>
+												<xs:attribute name="href" use="required"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Ttopic">
+		<xs:sequence>
+			<xs:element name="instanceOf" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="topicRef" nillable="true">
+							<xs:complexType>
+								<xs:attribute name="href" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="subjectIdentity" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="subjectIndicatorRef" nillable="true">
+							<xs:complexType>
+								<xs:attribute name="href" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="baseName" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="scope" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="topicRef" nillable="true">
+										<xs:complexType>
+											<xs:attribute name="href" use="required"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="baseNameString" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="occurrence" type="Toccurrence" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Toccurrence">
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="scope">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="topicRef" nillable="true">
+									<xs:complexType>
+										<xs:attribute name="href" use="required"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="resourceData" type="xs:string"/>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element name="instanceOf">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="topicRef" nillable="true">
+									<xs:complexType>
+										<xs:attribute name="href" use="required"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="resourceRef" nillable="true">
+						<xs:complexType>
+							<xs:attribute name="href" type="xs:string" use="required"/>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
