@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2018 rel. 2 sp1 (http://www.altova.com) by Altova XMLSpy 2019 Enterprise XML Editor (Universidade Federal de Santa Maria) -->
+<!-- edited with XMLSpy v2019 rel. 3 sp1 (x64) (http://www.altova.com) by Felipe (Universidade Federal de Santa Maria) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:element name="topicMap">
 		<xs:annotation>
