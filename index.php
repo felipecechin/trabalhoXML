@@ -10,21 +10,16 @@ function mostrarErros($erro) {
     }
 }
 
-try {
-    $xml = new DOMDocument();
-    $xml->load('./GioMovies.xtm');
-    if (!$xml->schemaValidate('./GioMovies.xsd')) {
-        mostrarErros("XML não validado pelo XSD");
-    } else {
-        echo "XML validado pelo XSD\n";
-    }
+$xml = new DOMDocument();
+$xml->load('./GioMovies.xtm');
+if (!$xml->schemaValidate('./GioMovies.xsd')) {
+    mostrarErros("XML não validado pelo XSD");
+} else {
+    echo "XML validado pelo XSD\n";
+}
 
-    if (!$xml->validate()) {
-        mostrarErros("XML não validado pelo DTD");
-    } else {
-        echo "XML validado pelo DTD\n";
-    }
-} catch (Exception $e) {
-    echo "oi";
-    echo $e->getMessage();
+if (!$xml->validate()) {
+    mostrarErros("XML não validado pelo DTD");
+} else {
+    echo "XML validado pelo DTD\n";
 }
