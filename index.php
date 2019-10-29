@@ -88,6 +88,30 @@ for ($i = 1;$i<=count($result);$i++) {
     echo "[".$i."] ".$result[$i-1]."\n";
 }
 
+//QUESTÃO D
+
+$instrucaoD = '//topic[./instanceOf/topicRef/@href="#Genero" and ./baseName/baseNameString[text()="Thriller"]]/@id';
+$result = $xml->xpath($instrucaoD);
+
+echo "d) Quais são os sites dos filmes que são do tipo 'thriller'?\n";
+$idGeneroThriller = "#".$result[0]["id"];
+
+$instrucaoD = '//association[./member/topicRef[@href="'.$idGeneroThriller.'"]]/member[1]/topicRef/@href';
+$result = $xml->xpath($instrucaoD);
+$i = 1;
+foreach ($result as $item) {
+    $idFilme = $item["href"];
+    $idFilme = str_replace('#', '', $idFilme);
+    $idFilme = str_replace(',', '', $idFilme);
+    $instrucaoD2 = '//topic[@id="'.$idFilme.'"]/occurrence[./instanceOf/topicRef/@href="#site"]/resourceRef/@href';
+    $result2 = $xml->xpath($instrucaoD2);
+    $site = $result2 ? $result2[0]["href"] : '';
+    if ($site!="") {
+        echo "[" . $i . "] " . $site . "\n";
+        $i++;
+    }
+}
+
 //QUESTÃO E
 
 $instrucaoE = '//topic[./instanceOf/topicRef/@href="#Filme" and count(./occurrence/scope/topicRef[@href="#elencoApoio"])>3]';
