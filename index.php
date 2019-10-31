@@ -147,6 +147,7 @@ foreach ($result as $item) {
 
 $idsFilmes = array_unique($idsFilmes);
 $idsFilmes = array_values($idsFilmes);
+echo "f) Quais são os ID dos filmes que tem o nome de algum membro do elenco citado na sinopse?\n";
 
 for ($i = 1; $i <= count($idsFilmes); $i++){
     echo "[".$i."] ".$idsFilmes[$i-1]."\n";
