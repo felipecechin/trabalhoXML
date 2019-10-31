@@ -118,7 +118,40 @@ $instrucaoE = '//topic[./instanceOf/topicRef/@href="#Filme" and count(./occurren
 $result = $xml->xpath($instrucaoE);
 
 echo "e) Quantos filmes contém mais de 3 atores como elenco de apoio?\n";
-echo count($result);
+echo count($result)."\n";
+
+//QUESTÃO F
+
+$instrucaoF = '//association[./instanceOf/topicRef/@href="#filme-elenco"]';
+$result = $xml->xpath($instrucaoF);
+
+$i = 1;
+$idsFilmes = [];
+foreach ($result as $item) {
+    $idElenco = $item->member[1]->topicRef["href"];
+    $idFilme = $item->member[0]->topicRef["href"];
+    $idFilme = str_replace('#', '', $idFilme);
+    $idFilme = str_replace(',', '', $idFilme);
+    $idElenco = str_replace('#', '', $idElenco);
+    $instrucaoF2 = '//topic[@id="'.$idElenco.'"]/baseName/baseNameString';
+    $result2 = $xml->xpath($instrucaoF2);
+    $nomeElenco = $result2[0]->__toString();
+    $instrucaoF3 = '//topic[@id="'.$idFilme.'"]/occurrence[./scope/topicRef/@href = "#sinopse"]/resourceData';
+    $result3 = $xml->xpath($instrucaoF3);
+    $sinopse = ($result3) ? $result3[0]->__toString() : '';
+    $pos = strpos($sinopse, $nomeElenco);
+    if ($pos !== false) {
+        $idsFilmes[] = $idFilme;
+    }
+}
+
+$idsFilmes = array_unique($idsFilmes);
+$idsFilmes = array_values($idsFilmes);
+
+for ($i = 1; $i <= count($idsFilmes); $i++){
+    echo "[".$i."] ".$idsFilmes[$i-1]."\n";
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
