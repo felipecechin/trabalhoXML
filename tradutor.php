@@ -12,7 +12,9 @@ $xml = new SimpleXMLElement($xml_string);
 if (!is_dir('filmes')) {
     // dir doesn't exist, make it
     mkdir('filmes');
-  }
+}
+
+$ocorrencias = ['#sinopse' => 'Sinopse', '#ingles' => 'Título em inglês', '#elencoApoio' => 'Elenco de apoio', '#site' => 'Site', '#distribuicao' => 'Distribuição'];
 
 $buscaFilmes = "//topic[./instanceOf/topicRef/@href='#Filme']";
 $results = $xml->xpath($buscaFilmes);
@@ -34,11 +36,23 @@ foreach($results as $item){
         <title>'.$item->baseName->baseNameString.'</title>
         </head>
     <body>';
-    /* foreach($item->occurrence as $occurence){
-        var_dump($occurence);
-        //$content .= '<h6>'.$occurrence.'</h6>';
-    } */
-    $paginaFilme .= '</body></html>';
+    $paginaFilme .= '<h1>'.$item->baseName->baseNameString.'</h1>';
+    $paginaFilme .= '<h3>Ocorrências</h3><ul>';
+    foreach ($item->children() as $child) {
+        if ($child->getName() == "occurrence") {
+            if ($child->scope) {
+                $tipo = $child->scope->topicRef["href"]->__toString();
+                $tipo = $ocorrencias[$tipo];
+                $valor = $child->resourceData;
+            } else if ($child->instanceOf) {
+                $tipo = $child->instanceOf->topicRef["href"]->__toString();
+                $tipo = $ocorrencias[$tipo];
+                $valor = $child->resourceRef["href"];
+            }
+            $paginaFilme .= '<li>'.$tipo.': '.$valor.'</li>';
+        }
+    }
+    $paginaFilme .= '</ul></body></html>';
     file_put_contents($fileFilme, $paginaFilme);
 }
 $content .= '</ol>';
