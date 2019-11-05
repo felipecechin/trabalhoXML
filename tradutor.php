@@ -11,6 +11,8 @@ $xml = new SimpleXMLElement($xml_string);
 
 $ocorrencias = ['#sinopse' => 'Sinopse', '#ingles' => 'Título em inglês', '#elencoApoio' => 'Elenco de apoio', '#site' => 'Site', '#distribuicao' => 'Distribuição'];
 $associacoes = ['#filme-ano' => 'Ano', '#filme-elenco' => 'Elenco', '#filme-direcao' => 'Direção', '#filme-genero' => 'Gênero', '#filme-duracao' => 'Duração'];
+$tipoPasta = ['#Duracao' => 'duracao', '#Ano' => 'ano', '#Elenco' => 'elenco', '#Direcao' => 'direcao', '#Genero' => 'genero'];
+$tipoNome = ['#Duracao' => 'Duração', '#Ano' => 'Ano', '#Elenco' => 'Elenco', '#Direcao' => 'Direção', '#Genero' => 'Gênero'];
 
 foreach ($associacoes as $chave => $valor) {
     $chave = str_replace('#filme-', '', $chave);
@@ -42,7 +44,7 @@ foreach($results as $item){
         <title>'.$item->baseName->baseNameString.'</title>
         </head>
     <body>';
-    $paginaFilme .= '<h1>'.$item->baseName->baseNameString.'</h1>';
+    $paginaFilme .= '<h1>Filme: '.$item->baseName->baseNameString.'</h1>';
     $paginaFilme .= '<h3>Ocorrências</h3><ul>';
     foreach ($item->children() as $child) {
         if ($child->getName() == "occurrence") {
@@ -67,7 +69,7 @@ foreach($results as $item){
         $tipo = $associacoes[$tipo];
         $idTipo = $item2->member[1]->topicRef['href']->__toString();
         $idTipo = str_replace('#', '', $idTipo);
-        $paginaFilme .= '<li><a href="../'.$nomePasta.'/'.$idTipo.'">'.$tipo.'</a></li>';
+        $paginaFilme .= '<li><a href="../'.$nomePasta.'/'.$idTipo.'.html">'.$tipo.'</a></li>';
     }
     $paginaFilme .= '</ul></body></html>';
     file_put_contents($fileFilme, $paginaFilme);
@@ -75,4 +77,20 @@ foreach($results as $item){
 $content .= '</ol>';
 $content .= '</body></html>';
 file_put_contents($file, $content);
-?>
+
+$buscaTopics = "//topic[./instanceOf/topicRef/@href= '#Ano' or ./instanceOf/topicRef/@href='#Direcao' or ./instanceOf/topicRef/@href='#Duracao' or ./instanceOf/topicRef/@href='#Elenco' or ./instanceOf/topicRef/@href='#Genero']";
+$results = $xml->xpath($buscaTopics);
+foreach ($results as $item) {
+    $tipo = $item->instanceOf->topicRef["href"]->__toString();
+    $nomePasta = $tipoPasta[$tipo];
+    $fileTopic = $nomePasta.'/'.$item["id"].'.html';
+    $paginaTopic = '<!doctype html><html>
+    <head>
+        <meta charset="utf-8">
+        <title>'.$item->baseName->baseNameString.'</title>
+        </head>
+    <body>';
+    $paginaTopic .= '<h2>'.$tipoNome[$tipo].': ' . $item->baseName->baseNameString.'</h2>';
+    $paginaTopic .= '</body></html>';
+    file_put_contents($fileTopic, $paginaTopic);
+}
