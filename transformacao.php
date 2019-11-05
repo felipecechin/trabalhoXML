@@ -92,7 +92,25 @@ foreach ($results as $item) {
         </head>
     <body>';
     $paginaTopic .= '<h2>'.$tipoNome[$tipo].': ' . $item->baseName->baseNameString.'</h2>';
-    $paginaTopic .= '</body></html>';
+
+    $paginaTopic .= '<h3>Associações</h3><ul>';
+    $buscaAssociacoes = '//association[./member[2]/topicRef/@href = "#'.$item["id"].'"]';
+    $results2 = $xml->xpath($buscaAssociacoes);
+    $nomesFilmes = [];
+    foreach ($results2 as $item2) {
+        $idFilme = $item2->member[0]->topicRef['href']->__toString();
+        //TODO
+        $idFilme = str_replace('#', '', $idFilme);
+        $idFilme = str_replace(',', '', $idFilme);
+        $idFilme = str_replace('º', '', $idFilme);
+        $instrucaoBuscaFilme = '//topic[@id="'.$idFilme.'"]/baseName/baseNameString';
+        $resultadoBuscaFilme = $xml->xpath($instrucaoBuscaFilme);
+        $nomesFilmes[$idFilme] = $resultadoBuscaFilme[0]->__toString();
+    }
+    foreach ($nomesFilmes as $chave => $valor) {
+        $paginaTopic .= '<li><a href="../filmes/'.$chave.'.html">'.$valor.'</a></li>';
+    }
+    $paginaTopic .= '</ul></body></html>';
     file_put_contents($fileTopic, $paginaTopic);
 }
 echo 'Arquivos gerados';
