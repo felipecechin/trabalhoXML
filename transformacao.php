@@ -1,4 +1,5 @@
-<?php 
+<?php
+echo "Gerando arquivos HTML...\n";
 define('ARQUIVO_XML', './GioMovies.xtm');
 $xml = new DOMDocument();
 $xml->load(ARQUIVO_XML);
@@ -94,3 +95,4 @@ foreach ($results as $item) {
     $paginaTopic .= '</body></html>';
     file_put_contents($fileTopic, $paginaTopic);
 }
+echo 'Arquivos gerados';
