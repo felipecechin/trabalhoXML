@@ -9,10 +9,6 @@ $xml_string = $xml->saveXML();
 
 $xml = new SimpleXMLElement($xml_string);
 
-if (!is_dir('filmes')) {
-    mkdir('filmes');
-}
-
 $ocorrencias = ['#sinopse' => 'Sinopse', '#ingles' => 'Título em inglês', '#elencoApoio' => 'Elenco de apoio', '#site' => 'Site', '#distribuicao' => 'Distribuição'];
 $associacoes = ['#filme-ano' => 'Ano', '#filme-elenco' => 'Elenco', '#filme-direcao' => 'Direção', '#filme-genero' => 'Gênero', '#filme-duracao' => 'Duração'];
 
@@ -21,6 +17,9 @@ foreach ($associacoes as $chave => $valor) {
     if (!is_dir($chave)) {
         mkdir($chave);
     }
+}
+if (!is_dir('filmes')) {
+    mkdir('filmes');
 }
 
 $buscaFilmes = "//topic[./instanceOf/topicRef/@href='#Filme']";

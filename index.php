@@ -67,16 +67,18 @@ $idAno2000 = "#".$result[0]["id"];
 
 $instrucaoB = '//association[./member/topicRef[@href="'.$idAno2000.'"]]/member[1]/topicRef/@href';
 $result = $xml->xpath($instrucaoB);
-$i = 1;
+$nomes = [];
 foreach ($result as $item) {
     $idFilme = $item["href"];
     $idFilme = str_replace('#', '', $idFilme);
     $idFilme = str_replace(',', '', $idFilme);
     $instrucaoB2 = '//topic[@id="'.$idFilme.'"]/baseName/baseNameString';
     $result2 = $xml->xpath($instrucaoB2);
-    $nome = $result2[0];
-    echo "[".$i."] ".$nome."\n";
-    $i++;
+    $nomes[] = $result2[0]->__toString();
+}
+sort($nomes);
+for ($i = 1;$i<=count($nomes);$i++) {
+    echo "[".$i."] ".$nomes[$i-1]."\n";
 }
 
 //QUESTÃO C
