@@ -1,4 +1,5 @@
 <?php
+//caso a classe DOMDocument() não funcione no linux, dar um sudo apt-get install php-dom
 libxml_use_internal_errors(true);
 //ini_set("display_errors", "Off");
 
