@@ -45,6 +45,7 @@ foreach($results as $item){
         <title>'.$item->baseName->baseNameString.'</title>
         </head>
     <body>';
+    $paginaFilme .= '<a href="../index.html">Voltar para página inicial</a>';
     $paginaFilme .= '<h1>Filme: '.$item->baseName->baseNameString.'</h1>';
     $paginaFilme .= '<h3>Ocorrências</h3><ul>';
     foreach ($item->children() as $child) {
@@ -91,6 +92,7 @@ foreach ($results as $item) {
         <title>'.$item->baseName->baseNameString.'</title>
         </head>
     <body>';
+    $paginaTopic .= '<a href="../index.html">Voltar para página inicial</a>';
     $paginaTopic .= '<h2>'.$tipoNome[$tipo].': ' . $item->baseName->baseNameString.'</h2>';
 
     $paginaTopic .= '<h3>Associações</h3><ul>';
@@ -99,14 +101,12 @@ foreach ($results as $item) {
     $nomesFilmes = [];
     foreach ($results2 as $item2) {
         $idFilme = $item2->member[0]->topicRef['href']->__toString();
-        //TODO
         $idFilme = str_replace('#', '', $idFilme);
-        $idFilme = str_replace(',', '', $idFilme);
-        $idFilme = str_replace('º', '', $idFilme);
         $instrucaoBuscaFilme = '//topic[@id="'.$idFilme.'"]/baseName/baseNameString';
         $resultadoBuscaFilme = $xml->xpath($instrucaoBuscaFilme);
         $nomesFilmes[$idFilme] = $resultadoBuscaFilme[0]->__toString();
     }
+    asort($nomesFilmes);
     foreach ($nomesFilmes as $chave => $valor) {
         $paginaTopic .= '<li><a href="../filmes/'.$chave.'.html">'.$valor.'</a></li>';
     }

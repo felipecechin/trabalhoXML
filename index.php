@@ -1,5 +1,8 @@
 <?php
 //caso a classe DOMDocument() não funcione no linux, dar um sudo apt-get install php-dom
+//replaces do arquivo original
+//de ",-" para "-"
+//de alien,-o-8º-passageiro para alien-o-8-passageiro
 libxml_use_internal_errors(true);
 //ini_set("display_errors", "Off");
 
@@ -71,7 +74,6 @@ $nomes = [];
 foreach ($result as $item) {
     $idFilme = $item["href"];
     $idFilme = str_replace('#', '', $idFilme);
-    $idFilme = str_replace(',', '', $idFilme);
     $instrucaoB2 = '//topic[@id="'.$idFilme.'"]/baseName/baseNameString';
     $result2 = $xml->xpath($instrucaoB2);
     $nomes[] = $result2[0]->__toString();
@@ -105,7 +107,6 @@ $i = 1;
 foreach ($result as $item) {
     $idFilme = $item["href"];
     $idFilme = str_replace('#', '', $idFilme);
-    $idFilme = str_replace(',', '', $idFilme);
     $instrucaoD2 = '//topic[@id="'.$idFilme.'"]/occurrence[./instanceOf/topicRef/@href="#site"]/resourceRef/@href';
     $result2 = $xml->xpath($instrucaoD2);
     $site = $result2 ? $result2[0]["href"] : '';
@@ -134,7 +135,6 @@ foreach ($result as $item) {
     $idElenco = $item->member[1]->topicRef["href"];
     $idFilme = $item->member[0]->topicRef["href"];
     $idFilme = str_replace('#', '', $idFilme);
-    $idFilme = str_replace(',', '', $idFilme);
     $idElenco = str_replace('#', '', $idElenco);
     $instrucaoF2 = '//topic[@id="'.$idElenco.'"]/baseName/baseNameString';
     $result2 = $xml->xpath($instrucaoF2);
