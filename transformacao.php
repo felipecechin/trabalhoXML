@@ -113,4 +113,4 @@ foreach ($results as $item) {
     $paginaTopic .= '</ul></body></html>';
     file_put_contents($fileTopic, $paginaTopic);
 }
-echo 'Arquivos gerados';
+echo "Arquivos gerados\n";

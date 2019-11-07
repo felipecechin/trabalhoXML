@@ -1,8 +1,4 @@
 <?php
-//caso a classe DOMDocument() não funcione no linux, dar um sudo apt-get install php-dom
-//replaces do arquivo original
-//de ",-" para "-"
-//de alien,-o-8º-passageiro para alien-o-8-passageiro
 libxml_use_internal_errors(true);
 //ini_set("display_errors", "Off");
 
