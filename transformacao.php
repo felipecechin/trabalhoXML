@@ -12,14 +12,11 @@ $xml = new SimpleXMLElement($xml_string);
 
 $ocorrencias = ['#sinopse' => 'Sinopse', '#ingles' => 'Título em inglês', '#elencoApoio' => 'Elenco de apoio', '#site' => 'Site', '#distribuicao' => 'Distribuição'];
 $associacoes = ['#filme-ano' => 'Ano', '#filme-elenco' => 'Elenco', '#filme-direcao' => 'Direção', '#filme-genero' => 'Gênero', '#filme-duracao' => 'Duração'];
-$tipoPasta = ['#Duracao' => 'duracao', '#Ano' => 'ano', '#Elenco' => 'elenco', '#Direcao' => 'direcao', '#Genero' => 'genero'];
 $tipoNome = ['#Duracao' => 'Duração', '#Ano' => 'Ano', '#Elenco' => 'Elenco', '#Direcao' => 'Direção', '#Genero' => 'Gênero'];
 
-foreach ($associacoes as $chave => $valor) {
-    $chave = str_replace('#filme-', '', $chave);
-    if (!is_dir($chave)) {
-        mkdir($chave);
-    }
+
+if (!is_dir('associacoes')) {
+    mkdir('associacoes');
 }
 if (!is_dir('filmes')) {
     mkdir('filmes');
@@ -67,11 +64,10 @@ foreach($results as $item){
     $results2 = $xml->xpath($buscaAssociacoes);
     foreach ($results2 as $item2) {
         $tipo = $item2->instanceOf->topicRef['href']->__toString();
-        $nomePasta = str_replace('#filme-', '', $tipo);
         $tipo = $associacoes[$tipo];
         $idTipo = $item2->member[1]->topicRef['href']->__toString();
         $idTipo = str_replace('#', '', $idTipo);
-        $paginaFilme .= '<li><a href="../'.$nomePasta.'/'.$idTipo.'.html">'.$tipo.'</a></li>';
+        $paginaFilme .= '<li><a href="../associacoes/'.$idTipo.'.html">'.$tipo.'</a></li>';
     }
     $paginaFilme .= '</ul></body></html>';
     file_put_contents($fileFilme, $paginaFilme);
@@ -84,8 +80,7 @@ $buscaTopics = "//topic[./instanceOf/topicRef/@href= '#Ano' or ./instanceOf/topi
 $results = $xml->xpath($buscaTopics);
 foreach ($results as $item) {
     $tipo = $item->instanceOf->topicRef["href"]->__toString();
-    $nomePasta = $tipoPasta[$tipo];
-    $fileTopic = $nomePasta.'/'.$item["id"].'.html';
+    $fileTopic = 'associacoes/'.$item["id"].'.html';
     $paginaTopic = '<!doctype html><html>
     <head>
         <meta charset="utf-8">

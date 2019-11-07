@@ -19,6 +19,6 @@ escrito e executado através do Visual Studio Code e seu terminal embutido, resp
     a) Para executar as validações (DTD e XMLSchema) e as consultas, basta abrir o terminal no 
     diretório raiz do projeto e rodar o comando php index.php.
     b) Para executar a transformação do arquivo "GioMovies.xtm" para páginas HTML, executamos o comando 
-    php transformacao.php. Após isso, um arquivo index.html e várias pastas referentes aos nodos serão 
+    php transformacao.php. Após isso, o arquivo index.html e duas pastas referentes aos nodos serão 
     criadas no diretório. Para visualizar o arquivo e navegar pelos nodos, basta abri-lo utilizando 
     qualquer navegador.
