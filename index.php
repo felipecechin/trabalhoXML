@@ -1,6 +1,6 @@
 <?php
 libxml_use_internal_errors(true);
-//ini_set("display_errors", "Off");
+ini_set("display_errors", "Off");
 
 define('ARQUIVO_XML', './GioMovies.xtm');
 define('ARQUIVO_XSD', './GioMovies.xsd');
