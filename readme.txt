@@ -1,11 +1,11 @@
 Todo o processo de desenvolvimento do trabalho foi feito em uma máquina com Ubuntu 19.04. O código foi 
-escrito e executado através do Visual Studio Code e seu terminal embutido, respectivamente. 
+escrito e executado através do Visual Studio Code e seu terminal embutido.
 1- Instalação
     a) Atualizar a lista de pacotes com o comando apt-get update && apt-get upgrade.
     b) Instalar o PHP com o comando apt-get install php.
     c) Após isso, é possível checar a versão do PHP através do comando php -v.
     d) Depois de instalar o PHP, é necessário utilizar a classe DOMDocument. Para isso, temos que 
-    instalar o pacote php-dom, digitando, no terminal, sudo apt-get install php-dom.
+    instalar o pacote php-dom, digitando, no terminal, apt-get install php-dom.
 2- Preparação do arquivo
     a) O arquivo original continha erros de referência, devido à erros de digitação. Em vista disso, foi preciso 
     abrir o arquivo "GioMovies.xtm" com o Visual Studio Code ou qualquer editor de texto e fazer as alterações
