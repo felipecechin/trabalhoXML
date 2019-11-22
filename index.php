@@ -37,6 +37,7 @@ $xml->preserveWhiteSpace = false;
 $xml->formatOutput = false;
 $xml_string = $xml->saveXML();
 
+//Representa o elemento como um documento XML
 $xml = new SimpleXMLElement($xml_string);
 
 ///////////////////////////////////////////CONSULTAS///////////////////////////////////////////////
